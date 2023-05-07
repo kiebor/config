@@ -114,3 +114,12 @@ user_pref("network.captive-portal-service.enabled", false);
 
 // Enable caret navigation
 user_pref("accessibility.browsewithcaret", true);
+
+// Disable HTTP/3 // Quic support (communicates with Google servers)
+user_pref("network.http.http3.enable", false);
+
+// Disable auto-fill credit cards
+user_pref("extensions.formautofill.creditCards.enabled", false);
+
+// Disable auto-fill addresses
+user_pref("extensions.formautofill.addresses.enabled", false);
