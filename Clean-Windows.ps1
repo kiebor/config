@@ -1,3 +1,6 @@
+# Check if host has Internet access
+$hasInternet = (Test-NetConnection -ComputerName 1.1.1.1).PingSucceeded
+
 function DisableService ($serviceName, $terminate = $true) {
     $service = Get-Item "HKLM:\SYSTEM\CurrentControlSet\Services\$serviceName"
     if ($service) {
@@ -47,54 +50,98 @@ function RemoveAppxProvisionedPackage($packageName) {
 Clear-Host
 
 # Telemetry
-DisableService -serviceName "DiagTrack"
-DisableService -serviceName "WdiSystemHost" -terminate $false
+Get-Service DiagTrack | Stop-Service -Force | Set-Service -StartupType Disabled
+Get-Service WdiSystemHost | Stop-Service -Force | Set-Service -StartupType Disabled
 
 # OneDrive?
 DisableService -serviceName "OneSyncSvc*"
 
 # Push notification service
-DisableService -serviceName "WpnService"
-DisableService -serviceName "WpnUserService_*"
+Get-Service WpnService | Stop-Service -Force | Set-Service -StartupType Disabled
+Get-Service WpnUserService_* | Stop-Service -Force | Set-Service -StartupType Disabled
 
 # Everything Xbox related
-DisableService -serviceName "XblAuthManager"
-DisableService -serviceName "XblGameSave"
-DisableService -serviceName "XboxGipSvc"
-DisableService -serviceName "XboxNetApiSvc"
+Get-Service XblAuthManager | Stop-Service -Force | Set-Service -StartupType Disabled
+Get-Service XblGameSave | Stop-Service -Force | Set-Service -StartupType Disabled
+Get-Service XboxGipSvc | Stop-Service -Force | Set-Service -StartupType Disabled
+Get-Service XboxNetApiSvc | Stop-Service -Force | Set-Service -StartupType Disabled
 
 # Everything MS-Edge related
-DisableService -serviceName "edgeupdate"
-DisableService -serviceName "edgeupdatem" 
-DisableService -serviceName "MicrosoftEdgeElevationService"
-DisableService -serviceName "uhssvc"
+Get-Service edgeupdate | Stop-Service -Force | Set-Service -StartupType Disabled
+Get-Service edgeupdatem | Stop-Service -Force | Set-Service -StartupType Disabled
+Get-Service MicrosoftEdgeElevationService | Stop-Service -Force | Set-Service -StartupType Disabled
+#DisableService -serviceName "uhssvc"
 
 # Contact data
-DisableService -serviceName "PimIndexMaintenanceSvc_*"
+Get-Service PimIndexMaintenanceSvc_* | Stop-Service -Force | Set-Service -StartupType Disabled
 
 # Maps data
-DisableService -serviceName "MapsBroker" -terminate $false
+Get-Service MapsBroker | Stop-Service -Force | Set-Service -StartupType Disabled
 
 # Connect with Microsoft Account
-DisableService -serviceName "wlidsvc" -terminate $false
+Get-Service wlidsvc | Stop-Service -Force | Set-Service -StartupType Disabled
 
 # haptic screen service
-DisableService -serviceName "TabletInputService" -terminate $true
+#DisableService -serviceName "TabletInputService" -terminate $true
 
 # Windows Insider
-DisableService -serviceName "wisvc"
+Get-Service wisvc | Stop-Service -Force | Set-Service -StartupType Disabled
 
 # "Windows service to stream or record gameplay"
-DisableService -serviceName "BcastDVRUserService"
+Get-Service BcastDVRUserService | Stop-Service -Force | Set-Service -StartupType Disabled
+
+Get-Service CDPUserSvc_* | Stop-Service -Force | Set-Service -StartupType Disabled
 
 #
-Get-Service fdPHost | Stop-Service -Force | Set-Service -StartupType ([System.ServiceProcess.ServiceStartMode]::Disabled)
+Get-Service fdPHost | Stop-Service -Force | Set-Service -StartupType Disabled 
 
 # NetBIOS resolution
-Get-Service lmhosts | Stop-Service -Force | Set-Service -StartupType ([System.ServiceProcess.ServiceStartMode]::Disabled)
+Get-Service lmhosts | Stop-Service -Force | Set-Service -StartupType Disabled 
 
 # Windows Error Reporting
-Get-Service WerSvc | Stop-Service -Force | Set-Service -StartupType ([System.ServiceProcess.ServiceStartMode]::Disabled)
+Get-Service WerSvc | Stop-Service -Force | Set-Service -StartupType Disabled 
+
+# Disable Print Spooler
+Get-Service Spooler | Stop-Service -Force | Set-Service -StartupType Disabled 
+
+# Disable "IP Helper" (IPv6 support)
+Get-Service iphlpsvc | Stop-Service -Force | Set-Service -StartupType Disabled 
+
+# Internet Connection Sharing (ICS)
+Get-Service SharedAccess | Stop-Service -Force | Set-Service -StartupType Disabled 
+
+# Telephony API
+Get-Service tapisrv | Stop-Service -Force | Set-Service -StartupType Disabled 
+
+#Get-Service WinHttpAutoProxySvc | Stop-Service -Force | Set-Service -StartupType Disabled 
+
+Get-Service CDPSvc | Stop-Service -Force | Set-Service -StartupType Disabled
+
+Get-Service DPS | Stop-Service -Force | Set-Service -StartupType Disabled
+
+# Windows Store installer service 
+Get-Service InstallService | Stop-Service -Force | Set-Service -StartupType Disabled
+
+# SSTP connection support service
+Get-Service SstpSvc | Stop-Service -Force | Set-Service -StartupType Disabled
+
+# Windows Image Acquisition
+Get-Service stisvc | Stop-Service -Force | Set-Service -StartupType Disabled
+
+# "Token Broker is used to manage permissions for the Windows App Store"
+Get-Service TokenBroker | Stop-Service -Force | Set-Service -StartupType Disabled 
+
+# Distribution optimization
+Get-Service DoSvc | Stop-Service -Force | Set-Service -StartupType Disabled 
+
+# Chip Cards
+Get-Service SCardSvr | Stop-Service -Force | Set-Service -StartupType Disabled
+
+# Web accounts
+Get-Service TokenBroker | Stop-Service -Force | Set-Service -StartupType Disabled
+
+# IPv6 support
+Get-Service iphlpsvc | Stop-Service -Force | Set-Service -StartupType Disabled
 
 #--------------------------------------------------------
 DisableScheduledTask( "MicrosoftEdgeUpdateTaskMachineCore" )
@@ -139,30 +186,42 @@ if ($restartNeeded) {
     Write-Host "A restart is needed"
 }
 
-# Drop everything in Windows Firewall by default
-Get-NetFirewallProfile | Set-NetFirewallProfile -DefaultInboundAction "Block" -DefaultOutboundAction "Block"
-
-# Remove all firewall rules 
+# ----- Remove all firewall rules ------
 Get-NetFirewallRule | Remove-NetFirewallRule
 
-# Enable firewall logging
-Get-NetFirewallProfile | Set-NetFirewallProfile -LogAllowed "True" -LogBlocked "True"
+# ------------ Firewall rules ------------ 
+New-NetFirewallRule -DisplayName "msedge.exe" -Program "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" -Direction Outbound -Action Block
+New-NetFirewallRule -DisplayName "smartscreen.exe" -Program "C:\Windows\System32\smartscreen.exe" -Direction Outbound -Action Block
+New-NetFirewallRule -DisplayName "SystemSettings.exe" -Program "C:\Windows\ImmersiveControlPanel\SystemSettings.exe" -Direction Outbound -Action Block
+New-NetFirewallRule -DisplayName "explorer.exe" -Program "%SystemRoot%\explorer.exe" -Direction Outbound -Action Block
+New-NetFirewallRule -DisplayName "WWAHost.exe" -Program "C:\Windows\System32\WWAHost.exe" -Direction Outbound -Action Block
 
-# Allow DHCP
-New-NetFirewallRule -DisplayName "Allow DHCP" -Service "Dhcp" -RemotePort 67 -Action Allow -Protocol UDP -Direction Outbound
+# ------------ Block Microsoft Spy addresses ------------
+$ipList = Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/firewall/spy.txt" | Select-Object -ExpandProperty Content
 
-# Allow DNS
-New-NetFirewallRule -DisplayName "Allow DNS" -Service "Dnscache" -RemotePort 53 -Action Allow -Protocol UDP -Direction Outbound
+$ipList = $ipList -split "\r?\n"
 
-# Allow Firefox
-New-NetFirewallRule -DisplayName "Allow Firefox (HTTP/HTTPS)" -Program "C:\Program Files\Mozilla Firefox\firefox.exe" -RemotePort 80,443 -Action Allow -Protocol TCP -Direction Outbound
+$ipList | Where-Object {
+    $_ -notmatch "^\s*(#|$)" -and `
+    (New-NetFirewallRule -DisplayName "BlockSpy_$($_)" -Enabled True -RemoteAddress $_ -Direction Outbound)
+}
 
-# Allow Windows Update
-New-NetFirewallRule -DisplayName "Allow Windows Update" -Service wuauserv -Action Allow -Protocol TCP -Direction Outbound
-
-# Disable Win+V
+# ------------ Disable Win+V ------------
 New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Type ([Microsoft.Win32.RegistryValueKind]::String) -Name "DisabledHotkeys" -Value "V"
+
+# Stop explorer.exe to apply changes ; it should restart automatically
+Stop-Process -Name explorer
 
 # Disable Windows Search Bing
 New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Type ([Microsoft.Win32.RegistryValueKind]::DWord) -Name "BingSearchEnabled" -Value 0
 New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Type ([Microsoft.Win32.RegistryValueKind]::DWord) -Name "CortanaConsent" -Value 0
+
+# Disable Windows Defender scheduled tasks
+Get-ScheduledTask “Windows Defender Cache Maintenance” | Disable-ScheduledTask
+Get-ScheduledTask “Windows Defender Cleanup” | Disable-ScheduledTask
+Get-ScheduledTask “Windows Defender Scheduled Scan” | Disable-ScheduledTask
+Get-ScheduledTask “Windows Defender Verification” | Disable-ScheduledTask
+
+New-Item -Type Directory "HKLM:\Software\Policies\Microsoft\Edge"
+Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name EnableMediaRouter -Value 0 -Force
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" -Name EnableMDNS -Value 0 -Force
