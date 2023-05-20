@@ -3,9 +3,6 @@ user_pref("app.shield.optoutstudies.enabled", false);
 // Disable about:config warning
 user_pref("browser.aboutConfig.showWarning", false);
 
-// Do not close Firefox after the last tab
-user_pref("browser.tabs.closeWindowWithLastTab", false);
-
 // Enable "do not track"
 user_pref("privacy.trackingprotection.enabled", true);
 
