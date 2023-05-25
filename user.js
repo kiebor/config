@@ -120,3 +120,13 @@ user_pref("extensions.formautofill.creditCards.enabled", false);
 
 // Disable auto-fill addresses
 user_pref("extensions.formautofill.addresses.enabled", false);
+
+// Disable Mozilla promotions
+user_pref("browser.contentblocking.report.vpn-promo.url", "");
+user_pref("browser.privatebrowsing.vpnpromourl", "");
+user_pref("browser.promo.focus.enabled", false);
+user_pref("browser.promo.pin.enabled", false);
+user_pref("browser.vpn_promo.enabled", false);
+user_pref("identity.mobilepromo.android", "");
+user_pref("identity.mobilepromo.ios", "");
+user_pref("identity.sendtabpromo.url", "");
