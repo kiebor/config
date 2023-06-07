@@ -130,3 +130,10 @@ user_pref("browser.vpn_promo.enabled", false);
 user_pref("identity.mobilepromo.android", "");
 user_pref("identity.mobilepromo.ios", "");
 user_pref("identity.sendtabpromo.url", "");
+
+// Include "Do not track" in request header
+user_pref("privacy.donottrackheader.enabled", true); 
+
+// Remove FF pocket from new tabpages
+user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
+user_pref("browser.newtabpage.activity-stream.feeds.section.topstories.options", "");
