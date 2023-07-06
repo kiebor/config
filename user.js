@@ -137,3 +137,6 @@ user_pref("privacy.donottrackheader.enabled", true);
 // Remove FF pocket from new tabpages
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories.options", "");
+
+// https://archive.md/8xge9
+user_pref("extensions.quarantinedDomains.enabled", false);
