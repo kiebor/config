@@ -143,3 +143,6 @@ user_pref("extensions.quarantinedDomains.enabled", false);
 
 // old scrollbar
 user_pref("widget.non-native-theme.scrollbar.style", 4);
+
+// Disable Firefox Screenshots
+user_pref("extensions.screenshots.disabled", true);
