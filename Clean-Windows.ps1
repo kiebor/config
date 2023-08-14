@@ -61,10 +61,7 @@ Get-Service WpnService | Stop-Service -Force | Set-Service -StartupType Disabled
 Get-Service WpnUserService_* | Stop-Service -Force | Set-Service -StartupType Disabled
 
 # Everything Xbox related
-Get-Service XblAuthManager | Stop-Service -Force | Set-Service -StartupType Disabled
-Get-Service XblGameSave | Stop-Service -Force | Set-Service -StartupType Disabled
-Get-Service XboxGipSvc | Stop-Service -Force | Set-Service -StartupType Disabled
-Get-Service XboxNetApiSvc | Stop-Service -Force | Set-Service -StartupType Disabled
+Get-Service | ? -FilterScript { ($_.Name -like "Xbl*") -or ($_.Name -like "*xbox*") } | foreach { sc.exe delete $_.Name }
 
 # Everything MS-Edge related
 Get-Service edgeupdate | Stop-Service -Force | Set-Service -StartupType Disabled
