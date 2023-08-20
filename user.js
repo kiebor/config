@@ -146,3 +146,6 @@ user_pref("widget.non-native-theme.scrollbar.style", 4);
 
 // Disable Firefox Screenshots
 user_pref("extensions.screenshots.disabled", true);
+
+// when multiple tabs are open, ask confirmation before closing the window
+user_pref("browser.tabs.warnOnClose", true);
