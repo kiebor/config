@@ -42,6 +42,7 @@ user_pref("toolkit.telemetry.server_owner", "");
 user_pref("toolkit.telemetry.shutdownPingSender.enabled", false);
 user_pref("toolkit.telemetry.unified", false);
 user_pref("toolkit.telemetry.updatePing.enabled", false);
+user_pref("toolkit.coverage.endpoint.base", "");
 user_pref("datareporting.healthreport.uploadEnabled", false);
 user_pref("datareporting.policy.dataSubmissionEnabled", false);
 user_pref("browser.newtabpage.activity-stream.telemetry", false);
@@ -149,3 +150,4 @@ user_pref("extensions.screenshots.disabled", true);
 
 // when multiple tabs are open, ask confirmation before closing the window
 user_pref("browser.tabs.warnOnClose", true);
+
