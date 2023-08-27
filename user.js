@@ -7,7 +7,7 @@ user_pref("browser.aboutConfig.showWarning", false);
 user_pref("privacy.trackingprotection.enabled", true);
 
 // Disable Firefox Normandy
-user_pref("app.normandy.enabled", true);
+user_pref("app.normandy.enabled", false);
 user_pref("app.normandy.first_run", false);
 user_pref("app.normandy.dev_mode", false);
 user_pref("beacon.enabled", false);
