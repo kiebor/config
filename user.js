@@ -57,6 +57,8 @@ user_pref("security.app_menu.recordEventTelemetry", false);
 user_pref("security.protectionspopup.recordEventTelemetry", false);
 user_pref("network.trr.confirmation_telemetry_enabled", false);
 user_pref("dom.security.unexpected_system_load_telemetry_enabled", false);
+user_pref("breakpad.reportURL", "");
+user_pref("browser.tabs.crashReporting.sendReport", false);
 
 // Disable Firefox Accounts
 user_pref("identity.fxaccounts.enabled", false);
