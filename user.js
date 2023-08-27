@@ -125,6 +125,10 @@ user_pref("extensions.formautofill.creditCards.enabled", false);
 // Disable auto-fill addresses
 user_pref("extensions.formautofill.addresses.enabled", false);
 
+user_pref("browser.formfill.enable", false);
+user_pref("signon.autofillForms", false);
+user_pref("signon.formlessCapture.enabled", false);
+
 // Disable Mozilla promotions
 user_pref("browser.contentblocking.report.vpn-promo.url", "");
 user_pref("browser.privatebrowsing.vpnpromourl", "");
