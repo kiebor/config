@@ -200,7 +200,7 @@ $ipList = $ipList -split "\r?\n"
 
 $ipList | Where-Object {
     $_ -notmatch "^\s*(#|$)" -and `
-    (New-NetFirewallRule -DisplayName "BlockSpy_$($_)" -Enabled True -RemoteAddress $_ -Direction Outbound)
+    (New-NetFirewallRule -DisplayName "BlockSpy_$($_)" -Enabled True -RemoteAddress $_ -Direction Outbound -Action Block)
 }
 
 # ------------ Disable Win+V ------------
