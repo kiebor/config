@@ -158,3 +158,5 @@ user_pref("extensions.screenshots.disabled", true);
 // when multiple tabs are open, ask confirmation before closing the window
 user_pref("browser.tabs.warnOnClose", true);
 
+// https://michael.kjorling.se/blog/2024/disabling-privacy-preserving-ad-measurement-in-firefox-128/
+user_pref("dom.private-attribution.submission.enabled", false);
