@@ -167,7 +167,7 @@ RemoveAppxProvisionedPackage ( "Microsoft.XboxApp_48.49.31001.0_neutral_~_8wekyb
 RemoveAppxProvisionedPackage ( "Microsoft.XboxGameOverlay_1.46.11001.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.XboxGamingOverlay_2.34.28001.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.XboxSpeechToTextOverlay_1.21.13002.0_neutral_~_8wekyb3d8bbwe" )
-RemoveAppxProvisionedPackage ( "Microsoft.Getstarted_8.2.22942.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.Getstarted_2021.2312.1.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.BingWeather_4.25.20211.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.XboxIdentityProvider_12.50.6001.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.ZuneMusic_2019.19071.19011.0_neutral_~_8wekyb3d8bbwe" )
