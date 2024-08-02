@@ -159,7 +159,7 @@ RemoveAppxProvisionedPackage ( "Microsoft.WindowsAlarms_2022.2302.4.0_neutral_~_
 RemoveAppxProvisionedPackage ( "Microsoft.Office.OneNote_16001.12026.20112.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.SkypeApp_14.53.77.0_neutral_~_kzf8qxf38zg5c" )
 RemoveAppxProvisionedPackage ( "Microsoft.WindowsFeedbackHub_2019.1111.2029.0_neutral_~_8wekyb3d8bbwe" )
-RemoveAppxProvisionedPackage ( "Microsoft.GetHelp_10.1706.13331.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.GetHelp_10.2403.20861.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.YourPhone_1.24062.101.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.WindowsMaps_2019.716.2316.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.Xbox.TCUI_1.23.28002.0_neutral_~_8wekyb3d8bbwe" )
@@ -173,7 +173,7 @@ RemoveAppxProvisionedPackage ( "Microsoft.XboxIdentityProvider_12.50.6001.0_neut
 RemoveAppxProvisionedPackage ( "Microsoft.ZuneMusic_2019.19071.19011.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.ZuneVideo_2019.19071.19011.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.People_2019.305.632.0_neutral_~_8wekyb3d8bbwe" )
-RemoveAppxProvisionedPackage ( "Microsoft.549981C3F5F10_4.2204.13303.0_neutral_~_8wekyb3d8bbwe" ) # Cortana
+RemoveAppxProvisionedPackage ( "Microsoft.549981C3F5F10_1.1911.21713.0_neutral_~_8wekyb3d8bbwe" ) # Cortana
 # Disable PowerShell 2 to avoid downgrade attacks via ScriptBlocks
 $restartNeeded = (Disable-WindowsOptionalFeature -Online -Remove -FeatureName MicrosoftWindowsPowerShellV2 -NoRestart).RestartNeeded
 $restartNeeded = $restartNeeded -or (Disable-WindowsOptionalFeature -Online -Remove -FeatureName MicrosoftWindowsPowerShellV2Root -NoRestart).RestartNeeded
