@@ -174,6 +174,19 @@ RemoveAppxProvisionedPackage ( "Microsoft.ZuneMusic_2019.19071.19011.0_neutral_~
 RemoveAppxProvisionedPackage ( "Microsoft.ZuneVideo_2019.19071.19011.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.People_2019.305.632.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "Microsoft.549981C3F5F10_1.1911.21713.0_neutral_~_8wekyb3d8bbwe" ) # Cortana
+RemoveAppxProvisionedPackage ( "Clipchamp.Clipchamp_2.2.8.0_neutral_~_yxz26nhyzhsrt" )
+RemoveAppxProvisionedPackage ( "Microsoft.BingNews_2022.507.446.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.Windows.DevHome_2024.703.849.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.Todos_2022.507.447.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.OutlookForWindows_1.2024.717.400_x64__8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.Paint_11.2404.1020.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.PowerAutomateDesktop_2022.507.446.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "MicrosoftTeams_24124.2402.2858.5617_x64__8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "MicrosoftCorporationII.QuickAssist_2022.507.446.0_neutral_~_8wekyb3d8bbwe" )
+
+
+
+
 # Disable PowerShell 2 to avoid downgrade attacks via ScriptBlocks
 $restartNeeded = (Disable-WindowsOptionalFeature -Online -Remove -FeatureName MicrosoftWindowsPowerShellV2 -NoRestart).RestartNeeded
 $restartNeeded = $restartNeeded -or (Disable-WindowsOptionalFeature -Online -Remove -FeatureName MicrosoftWindowsPowerShellV2Root -NoRestart).RestartNeeded
