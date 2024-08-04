@@ -183,9 +183,14 @@ RemoveAppxProvisionedPackage ( "Microsoft.Paint_11.2404.1020.0_neutral_~_8wekyb3
 RemoveAppxProvisionedPackage ( "Microsoft.PowerAutomateDesktop_2022.507.446.0_neutral_~_8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "MicrosoftTeams_24124.2402.2858.5617_x64__8wekyb3d8bbwe" )
 RemoveAppxProvisionedPackage ( "MicrosoftCorporationII.QuickAssist_2022.507.446.0_neutral_~_8wekyb3d8bbwe" )
-
-
-
+RemoveAppxProvisionedPackage ( "Microsoft.WindowsSoundRecorder_2021.2103.28.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "MicrosoftWindows.CrossDevice_1.24062.51.0_neutral_~_cw5n1h2txyewy" )
+RemoveAppxProvisionedPackage ( "Microsoft.WindowsAlarms_2021.2403.8.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.WindowsNotepad_2022.507.446.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "microsoft.windowscommunicationsapps_16005.14326.22019.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.XboxGamingOverlay_7.124.5142.0_neutral_~_8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.MicrosoftEdge.Stable_127.0.2651.86_neutral__8wekyb3d8bbwe" )
+RemoveAppxProvisionedPackage ( "Microsoft.GamingApp_2407.1001.1.0_neutral_~_8wekyb3d8bbwe" )
 
 # Disable PowerShell 2 to avoid downgrade attacks via ScriptBlocks
 $restartNeeded = (Disable-WindowsOptionalFeature -Online -Remove -FeatureName MicrosoftWindowsPowerShellV2 -NoRestart).RestartNeeded
