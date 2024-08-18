@@ -1,3 +1,15 @@
+# Configuration
+$BlockedProcessesOutbound = @(
+    "$env:SystemRoot\System32\wermgr.exe"
+    "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe"
+    "${env:ProgramFiles(x86)}\Microsoft\edgeupdate\microsoftedgeupdate.exe"
+    "$env:SystemRoot\System32\smartscreen.exe"
+    "$env:SystemRoot\ImmersiveControlPanel\SystemSettings.exe"
+    "$env:SystemRoot\System32\WWAHost.exe"
+    "$env:SystemRoot\explorer.exe"
+    "$env:SystemRoot\System32\mousocoreworker.exe"
+)
+
 # Check if host has Internet access
 $hasInternet = (Test-NetConnection -ComputerName 1.1.1.1).PingSucceeded
 
@@ -202,14 +214,12 @@ if ($restartNeeded) {
 }
 
 # ----- Remove all firewall rules ------
-Get-NetFirewallRule | Remove-NetFirewallRule
+Get-Netfirewallrule | Where-Object Description -eq "CREATED_FROM_WINDOWS_CLEAN_SCRIPT" | Remove-NetFirewallRule
 
-# ------------ Firewall rules ------------ 
-New-NetFirewallRule -DisplayName "msedge.exe" -Program "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" -Direction Outbound -Action Block
-New-NetFirewallRule -DisplayName "smartscreen.exe" -Program "C:\Windows\System32\smartscreen.exe" -Direction Outbound -Action Block
-New-NetFirewallRule -DisplayName "SystemSettings.exe" -Program "C:\Windows\ImmersiveControlPanel\SystemSettings.exe" -Direction Outbound -Action Block
-New-NetFirewallRule -DisplayName "explorer.exe" -Program "%SystemRoot%\explorer.exe" -Direction Outbound -Action Block
-New-NetFirewallRule -DisplayName "WWAHost.exe" -Program "C:\Windows\System32\WWAHost.exe" -Direction Outbound -Action Block
+# ------------ Block specified processes outbound traffic ------------ 
+$BlockedProcessesOutbound | foreach {
+    New-NetFirewallRule -Direction Outbound -Action Block -Program $_ -DisplayName (Split-Path "$_" -Leaf) -Description "CREATED_FROM_WINDOWS_CLEAN_SCRIPT"
+}
 
 # ------------ Block Microsoft Spy addresses ------------
 $ipList = Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/firewall/spy.txt" | Select-Object -ExpandProperty Content
