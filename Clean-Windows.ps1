@@ -1,6 +1,7 @@
 # Configuration
 $BlockedProcessesOutbound = @(
     "$env:SystemRoot\System32\wermgr.exe"
+    "$env:SystemRoot\System32\werfault.exe"
     "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe"
     "${env:ProgramFiles(x86)}\Microsoft\edgeupdate\microsoftedgeupdate.exe"
     "$env:SystemRoot\System32\smartscreen.exe"
