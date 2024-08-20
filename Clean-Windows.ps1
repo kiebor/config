@@ -12,6 +12,17 @@ $BlockedProcessesOutbound = @(
     "$env:SystemRoot\immersivecontrolpanel\systemsettings.exe"
 )
 
+$ServicesToDelete = @(
+    "DiagTrack" # Telemetry
+    "edgeupdate"
+    "edgeupdatem"
+    "MicrosoftEdgeElevationService"
+    "AsusSystemDiagnosis"
+    "wlidsvc"
+    "wisvc" # Windows Insider
+    "OneSyncSvc_*"
+)
+
 # Check if host has Internet access
 $hasInternet = (Test-NetConnection -ComputerName 1.1.1.1).PingSucceeded
 
@@ -63,8 +74,9 @@ function RemoveAppxProvisionedPackage($packageName) {
 
 Clear-Host
 
+Get-Service -Name $ServicesToDelete 2>$null | Foreach-Object { sc.exe stop $_.Name; sc.exe delete $_.Name } 
+
 # Telemetry
-Get-Service DiagTrack | Stop-Service -Force | Set-Service -StartupType Disabled
 Get-Service WdiSystemHost | Stop-Service -Force | Set-Service -StartupType Disabled
 
 # OneDrive?
@@ -77,10 +89,6 @@ Get-Service WpnUserService_* | Stop-Service -Force | Set-Service -StartupType Di
 # Everything Xbox related
 Get-Service | ? -FilterScript { ($_.Name -like "Xbl*") -or ($_.Name -like "*xbox*") } | foreach { sc.exe delete $_.Name }
 
-# Everything MS-Edge related
-Get-Service edgeupdate | Stop-Service -Force | Set-Service -StartupType Disabled
-Get-Service edgeupdatem | Stop-Service -Force | Set-Service -StartupType Disabled
-Get-Service MicrosoftEdgeElevationService | Stop-Service -Force | Set-Service -StartupType Disabled
 #DisableService -serviceName "uhssvc"
 
 # Contact data
@@ -207,13 +215,9 @@ RemoveAppxProvisionedPackage ( "Microsoft.MicrosoftEdge.Stable_127.0.2651.86_neu
 RemoveAppxProvisionedPackage ( "Microsoft.GamingApp_2407.1001.1.0_neutral_~_8wekyb3d8bbwe" )
 
 # Disable PowerShell 2 to avoid downgrade attacks via ScriptBlocks
-$restartNeeded = (Disable-WindowsOptionalFeature -Online -Remove -FeatureName MicrosoftWindowsPowerShellV2 -NoRestart).RestartNeeded
-$restartNeeded = $restartNeeded -or (Disable-WindowsOptionalFeature -Online -Remove -FeatureName MicrosoftWindowsPowerShellV2Root -NoRestart).RestartNeeded
-$restartNeeded = $restartNeeded -or (Disable-WindowsOptionalFeature -Online -Remove -FeatureName Printing-XPSServices-Features -NoRestart).RestartNeeded
-
-if ($restartNeeded) {
-    Write-Host "A restart is needed"
-}
+Disable-WindowsOptionalFeature -Online -Remove -FeatureName MicrosoftWindowsPowerShellV2 -NoRestart
+Disable-WindowsOptionalFeature -Online -Remove -FeatureName MicrosoftWindowsPowerShellV2Root -NoRestart
+Disable-WindowsOptionalFeature -Online -Remove -FeatureName Printing-XPSServices-Features -NoRestart
 
 # ----- Remove all firewall rules ------
 Get-Netfirewallrule | Where-Object Description -eq "CREATED_FROM_WINDOWS_CLEAN_SCRIPT" | Remove-NetFirewallRule
