@@ -21,6 +21,9 @@ $ServicesToDelete = @(
     "wlidsvc"
     "wisvc" # Windows Insider
     "OneSyncSvc_*"
+    "iphlpsvc" # IPv6 support
+    "WerSvc" # Windows Error Reporting
+    "SCardSvr" # Chip cards
 )
 
 # Check if host has Internet access
@@ -117,14 +120,8 @@ Get-Service fdPHost | Stop-Service -Force | Set-Service -StartupType Disabled
 # NetBIOS resolution
 Get-Service lmhosts | Stop-Service -Force | Set-Service -StartupType Disabled 
 
-# Windows Error Reporting
-Get-Service WerSvc | Stop-Service -Force | Set-Service -StartupType Disabled 
-
 # Disable Print Spooler
 Get-Service Spooler | Stop-Service -Force | Set-Service -StartupType Disabled 
-
-# Disable "IP Helper" (IPv6 support)
-Get-Service iphlpsvc | Stop-Service -Force | Set-Service -StartupType Disabled 
 
 # Internet Connection Sharing (ICS)
 Get-Service SharedAccess | Stop-Service -Force | Set-Service -StartupType Disabled 
@@ -153,14 +150,8 @@ Get-Service TokenBroker | Stop-Service -Force | Set-Service -StartupType Disable
 # Distribution optimization
 Get-Service DoSvc | Stop-Service -Force | Set-Service -StartupType Disabled 
 
-# Chip Cards
-Get-Service SCardSvr | Stop-Service -Force | Set-Service -StartupType Disabled
-
 # Web accounts
 Get-Service TokenBroker | Stop-Service -Force | Set-Service -StartupType Disabled
-
-# IPv6 support
-Get-Service iphlpsvc | Stop-Service -Force | Set-Service -StartupType Disabled
 
 #--------------------------------------------------------
 DisableScheduledTask( "MicrosoftEdgeUpdateTaskMachineCore" )
