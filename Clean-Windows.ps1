@@ -24,6 +24,7 @@ $ServicesToDelete = @(
     "iphlpsvc" # IPv6 support
     "WerSvc" # Windows Error Reporting
     "SCardSvr" # Chip cards
+    "lmhosts" # NetBIOS resolution
 )
 
 # Check if host has Internet access
@@ -116,9 +117,6 @@ Get-Service CDPUserSvc_* | Stop-Service -Force | Set-Service -StartupType Disabl
 
 #
 Get-Service fdPHost | Stop-Service -Force | Set-Service -StartupType Disabled 
-
-# NetBIOS resolution
-Get-Service lmhosts | Stop-Service -Force | Set-Service -StartupType Disabled 
 
 # Disable Print Spooler
 Get-Service Spooler | Stop-Service -Force | Set-Service -StartupType Disabled 
