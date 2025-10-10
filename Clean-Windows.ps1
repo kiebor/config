@@ -9,7 +9,8 @@ $BlockedProcessesOutbound = @(
     "$env:SystemRoot\System32\WWAHost.exe"
     "$env:SystemRoot\explorer.exe"
     "$env:SystemRoot\System32\mousocoreworker.exe"
-    "$env:SystemRoot\immersivecontrolpanel\systemsettings.exe"
+    "$env:SystemRoot\immersivecontrolpanel\systemsettings.exe",
+    "${env:ProgramFiles(x86)}\steam\steamerrorreporter64.exe"
 )
 
 $ServicesToDelete = @(
