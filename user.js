@@ -20,17 +20,6 @@ user_pref("browser.shell.checkDefaultBrowser", true);
 user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
 user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
 
-// Disable Firefox Pocket
-user_pref("extensions.pocket.enabled", false);
-user_pref("extensions.pocket.api", "");
-user_pref("extensions.pocket.oAuthConsumerKey", "");
-user_pref("extensions.pocket.onSaveRecs", false);
-user_pref("extensions.pocket.showHome", false);
-user_pref("extensions.pocket.site", "");
-user_pref("browser.newtabpage.activity-stream.discoverystream.saveToPocketCard.enabled", false);
-user_pref("browser.newtabpage.activity-stream.discoverystream.sendToPocket.enabled", false);
-user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket", false);
-
 // Disable telemetry
 user_pref("toolkit.telemetry.archive.enabled", false);
 user_pref("toolkit.telemetry.bhrPing.enabled", false);
